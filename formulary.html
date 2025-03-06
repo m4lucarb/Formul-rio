@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Produto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 20px auto;
+            text-align: center;
+        }
+        input {
+            display: block;
+            margin: 10px auto;
+            padding: 5px;
+            width: 90%;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Cadastro de Produto</h2>
+    <form id="produtoForm">
+        <input type="text" id="nome" placeholder="Nome do Produto">
+        <span id="erroNome" class="error"></span>
+        
+        <input type="number" id="quantidade" placeholder="Quantidade" min="1">
+        <input type="number" id="valor" placeholder="Valor" step="0.01">
+        
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <h3>Dados do Produto:</h3>
+    <div id="resultado"></div>
+
+    <script>
+        document.getElementById("produtoForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Evita o recarregamento da página
+
+            let nome = document.getElementById("nome").value.trim();
+            let quantidade = document.getElementById("quantidade").value;
+            let valor = document.getElementById("valor").value;
+            let erroNome = document.getElementById("erroNome");
+            let resultado = document.getElementById("resultado");
+
+            // Limpa mensagens de erro
+            erroNome.textContent = "";
+
+            // Validação do nome
+            if (nome === "") {
+                erroNome.textContent = "O nome do produto é obrigatório!";
+                return;
+            }
+
+            // Criar objeto do produto
+            let produto = {
+                nome: nome,
+                quantidade: quantidade,
+                valor: parseFloat(valor).toFixed(2)
+            };
+
+            // Exibir resultado na tela
+            resultado.innerHTML = `
+                <p><strong>Nome:</strong> ${produto.nome}</p>
+                <p><strong>Quantidade:</strong> ${produto.quantidade}</p>
+                <p><strong>Valor:</strong> R$ ${produto.valor}</p>
+            `;
+        });
+    </script>
+</body>
+</html>
